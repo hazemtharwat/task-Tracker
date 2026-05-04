@@ -1,0 +1,20 @@
+<div class="container W-[50%]">
+  <h1 class="fw-bold mt-4">Task's</h1>
+  <div class="taskWrapper mat-elevation-z3 p-2 ">
+    @for (item of tasksList; track item.id) {
+      <div class="taskItem mat-elevation-z2 p-3">
+        <div class="d-flex algin-center">
+            <div class="  fs-5">
+            @if (item.done === false) {<mat-icon >circle</mat-icon>}
+            @if (item.done === true) {<mat-icon class="text-primary">check_circle</mat-icon>}
+        </div>
+        <p class="ms-2 fw-bold"> {{ item.title }}</p>
+        </div>
+            <div  class="d-flex space-between algin-center dtWrppr">
+            <span class="dueDate">Due:{{item.date| date }}</span>
+            <button mat-icon-button role="button" class="text-danger ms-auto cnclbtn"><mat-icon>highlight_off</mat-icon></button>
+            </div>
+        </div>
+    }
+  </div>
+</div>
