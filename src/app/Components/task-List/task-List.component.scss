@@ -1,0 +1,46 @@
+.taskWrapper {
+  width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0px;
+  border-radius: 10px;
+  min-height: 70vh;
+  height: auto;
+  position: relative;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+  -o-border-radius: 10px;
+}
+.taskItem {
+  align-items: center;
+  border-radius: 10px;
+}
+.dueDate{
+  display: inline-block;
+ margin-left: 10px;
+//  margin-right: 10px;
+}
+.dtWrppr{
+ height: 20px;
+}
+.cnclbtn{
+  margin-bottom: 5px;
+}
+.taskItemStyle{
+  text-decoration: line-through;
+}
+.addtaskBtn{
+  position: absolute;
+  bottom: 14rem;
+  right: 25rem;
+
+}
+@media screen and (max-width:968px) {
+  .addtaskBtn{
+  position: absolute;
+  bottom: 30px;
+  right: 27px;
+
+}
+}

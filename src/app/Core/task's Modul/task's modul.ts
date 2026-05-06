@@ -1,6 +1,7 @@
 export interface Task {
-  id: number;
-  title: string;
-  date: Date;
-  done: boolean;
+  title: string|null|undefined;
+  date: Date|null;
+  done: boolean|null;
+  progress:number|null;
+    Priority:String|null,
 }
