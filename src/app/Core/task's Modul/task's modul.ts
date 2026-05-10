@@ -1,7 +1,10 @@
+import { Timestamp } from "@angular/fire/firestore";
+
 export interface Task {
-  title: string|null|undefined;
-  date: Date|null;
+  id?:string,
+  title: string|null;
+  date: Date|Timestamp;
   done: boolean|null;
   progress:number|null;
-    Priority:String|null,
+  Priority:String|null,
 }
