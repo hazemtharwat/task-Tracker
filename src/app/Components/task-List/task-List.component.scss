@@ -11,58 +11,65 @@
   -moz-border-radius: 10px;
   -ms-border-radius: 10px;
   -o-border-radius: 10px;
+  overflow-y: scroll;
 }
 .taskItem {
   align-items: center;
   border-radius: 10px;
 }
-.dueDate{
+.dueDate {
   display: inline-block;
- margin-left: 10px;
-//  margin-right: 10px;
+  margin-left: 10px;
+  //  margin-right: 10px;
 }
-.dtWrppr{
- height: 20px;
+.dtWrppr {
+  height: 20px;
 }
-.cnclbtn{
+.cnclbtn {
   margin-bottom: 5px;
 }
-.taskItemStyle{
+.taskItemStyle {
   text-decoration: line-through;
 }
-.addtaskBtn{
+.addtaskBtn {
   position: absolute;
   bottom: 14rem;
   right: 25rem;
-
 }
-@media screen and (max-width:968px) {
-  .addtaskBtn{
-  position: absolute;
-  bottom: 30px;
-  right: 27px;
-
+@media screen and (max-width: 968px) {
+  .taskWrapper {
+    width: 100%;
+  }
+  .addtaskBtn {
+    // position: absolute;
+    position: fixed;
+    bottom: 15%;
+    right: 20%;
+    z-index: 999;
+  }
 }
-.updtbtn{
-  background-color: rgb(4, 102, 221) !important;
-  color: rgb(4, 102, 221) !important;;
+.updtbtn {
+  background-color: rgb(41, 99, 245) !important;
   border-radius: 10px !important;
   -webkit-border-radius: 10px;
   -moz-border-radius: 10px;
   -ms-border-radius: 10px;
   -o-border-radius: 10px;
-  
+  text-align: center;
+  margin-left: 10px;
+  margin-right: 10px;
+  width: 3px;
+  height: 20px;
 }
-.paiortyRed{
-background-color: red;
-color: white;
-}
-.paiortyYellow{
-  background-color: yellow;
-  color: black;
-}
-.paiortyblue{
-  background-color: rgb(33, 33, 147);
-  color: white;
-}
-}
+// .paiortyRed{
+// background-color: #9964f5;
+// color: white ;
+// }
+// .paiortyYellow{
+//   background-color:#9576ca;
+//   color: black;
+// }
+// .paiortyblue{
+//   background-color:	#afc1d0;
+//   color: white;
+// }

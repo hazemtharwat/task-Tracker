@@ -1,5 +1,13 @@
 import { TasksService } from './../../Core/services/tasks.service';
-import { Component, EventEmitter, inject, Output } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  EventEmitter,
+  Inject,
+  inject,
+  Output,
+  ViewChild,
+} from '@angular/core';
 import {
   FormBuilder,
   FormsModule,
@@ -13,11 +21,12 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
 import {
+  MAT_BOTTOM_SHEET_DATA,
   MatBottomSheetModule,
   MatBottomSheetRef,
 } from '@angular/material/bottom-sheet';
-import { TaskModalComponent } from '../task-List/task-List.component';
 import { Task } from "../../Core/task's Modul/task's modul";
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-create-task',
@@ -37,23 +46,48 @@ import { Task } from "../../Core/task's Modul/task's modul";
   styleUrl: './create-task.component.scss',
 })
 export class CreateTaskComponent {
-  @Output('tasksData') tasksData=new EventEmitter();
+  @ViewChild('inputFocus') inputFocus!: ElementRef;
+  private toster = inject(ToastrService);
+  @Output('tasksData') tasksData = new EventEmitter();
   private bottomSheetRef = inject(MatBottomSheetRef<CreateTaskComponent>);
   private tasksService = inject(TasksService);
-  newTaskInputValue!: string;
-  campaignTwo: any;
-  constructor(private fb: FormBuilder) {}
+  constructor(
+    private fb: FormBuilder,
+    @Inject(MAT_BOTTOM_SHEET_DATA) public data: any,
+  ) {}
   CreateTaskFrom = this.fb.group({
     title: ['', [Validators.required]],
-    Priority: ['Hight', [Validators.required]],
-    done: [false, [Validators.required]],
-    progress: [0, [Validators.required]],
+    Priority: ['High', [Validators.required]],
+    done: [false],
+    progress: [0],
     date: [new Date(), [Validators.required]],
   });
+  ngOnInit(): void {
+    if(this.data){
+      this.CreateTaskFrom.patchValue({
+      title: this.data.item.title,
+      Priority: this.data.item.Priority,
+      date: this.data.item.date,
+      progress:this.data.item.progress
+    });
+    }
+    
+  }
+  ngAfterViewInit(): void {
+    this.inputFocus.nativeElement.focus();
+  }
   async createTaks() {
     const itemTask = this.CreateTaskFrom.getRawValue() as Task;
-    this.tasksService.sendTaskData(itemTask)
-    await this.tasksService.createTask(itemTask);
+    await this.tasksService
+      .createTask(itemTask)
+      .then(() => {
+        this.tasksService.setTaskData(itemTask);
+
+        this.toster.success('تمت الاضافه ');
+      })
+      .catch((err) => {
+        this.toster.error(err);
+      });
   }
 
   async onsubmit() {
@@ -61,11 +95,13 @@ export class CreateTaskComponent {
       this.CreateTaskFrom.markAllAsTouched();
       return;
     }
-    if (this.CreateTaskFrom.value) {
-      await this.createTaks();
-      this.bottomSheetRef.dismiss(this.CreateTaskFrom.value);
+    if (this.data) {
+      this.bottomSheetRef.dismiss({index: this.data.index,item: this.CreateTaskFrom.value,});
+    } else {
 
-      console.log(this.CreateTaskFrom.getRawValue());
+          await this.createTaks();
+    this.bottomSheetRef.dismiss();
     }
+  
   }
 }

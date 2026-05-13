@@ -1,44 +1,40 @@
 <div class="container w-100">
   <h1 class="fw-bold mt-4">Task's</h1>
-  <div class="taskWrapper mat-elevation-z3 p-2">
-    @for (item of tasksList; track $index) {
-      <div class="taskItem mat-elevation-z2 p-3">
-        <div class="d-flex algin-center position-relative">
+  <div class="taskWrapper mat-elevation-z3 p-2 position-relative">
+ @if(tasksList){
+     @for (item of tasksList; track $index) {
+      <div   [ngClass]="{
+              'paiortyRed': item.Priority?.trim() === 'High',
+              'paiortyYellow': item.Priority?.trim() === 'Meduim',
+              'paiortyblue': item.Priority?.trim() === 'Low', }" class="taskItem mat-elevation-z2 px-1 py-3 mb-2 ">
+        <div class="d-flex algin-center ">
           <div class="fs-5">
             @if (item.done === false) {
               <mat-icon>donut_large</mat-icon>
             }
-            @if (item.done === true) {
+            <!-- @if (item.done === true) {
               <mat-icon class="text-primary">check_circle</mat-icon>
-            }
+            } -->
           </div>
-          @if (item.done === true) {
+          <!-- @if (item.done === true) {
             <p class="ms-2 fw-bold taskItemStyle">{{ item.title }}</p>
-          } @else {
+          } @else { -->
             <p class="ms-2 fw-bold">
               {{ item.title }}
               <span class="text-info"> (Progress {{ item.progress }}%)</span>
             </p>
-          }
+          <!-- } -->
         </div>
         <div class="d-flex justify-content-between algin-center dtWrppr mb-2">
-          <span class="dueDate"
-            >Due:{{ item.date.toLocaleString() | date: "long" }}</span
-          >
-          <!-- <span [ngclass]="{'paiortyRed': item.paiorty==='Hight' ,'paiortyYellow':item.paiorty==='Meduim' ,'paiortyblue':item.paiorty==='Low'}">
-              paiorty:{{item.paiorty}}</span> -->
-          <span
-            [ngClass]="{
-              paiortyRed: item.Priority === 'Hight',
-              paiortyYellow: item.Priority === 'Meduim',
-              paiortyblue: item.Priority === 'Low',
-            }"
-          >
-            paiorty: {{ item.Priority }}
+          <!-- <span class="dueDate">Due:{{ item.date.toLocaleString() | date: "long" }}</span> -->
+          <span class="dueDate">Time :{{ item.date | date:'medium' }}</span>
+          <span>
+          Priority: {{ item.Priority }}
           </span>
+         
           <div class="d-flex align-items-center">
-            <button mat-button (click)="patchValue($event)" class="updtbtn">
-              <mat-icon>border_color</mat-icon>
+            <button mat-button (click)="patchValue($index)" class="updtbtn">
+              <mat-icon class="text-white align-middle">border_color</mat-icon>
             </button>
             <mat-icon
               role="button"
@@ -51,8 +47,9 @@
         </div>
       </div>
     }
+ }
   </div>
-  <button
+  <button 
     mat-fab="elevated"
     (click)="addNewTask($event)"
     class="addtaskBtn fs-3"

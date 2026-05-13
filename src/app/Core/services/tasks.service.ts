@@ -8,14 +8,15 @@ import {
   deleteDoc,
   doc,
   updateDoc,
+  Timestamp,
 } from '@angular/fire/firestore';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, map, Observable, timestamp } from 'rxjs';
 import { Task } from "../task's Modul/task's modul";
 @Injectable({
   providedIn: 'root',
 })
 export class TasksService {
-  tasksFrom = new BehaviorSubject([]);
+  private tasksFrom = new BehaviorSubject<any[]>([]);
   tasksFromList$ = this.tasksFrom.asObservable();
   private _firestore = inject(Firestore);
   private collectionName = 'TasksList';
@@ -26,19 +27,29 @@ export class TasksService {
 
   constructor() {}
   //createTask
-  sendTaskData(tasks: any) {
-    this.tasksFrom.next(tasks);
+  setTaskData(tasks: any) {
+    const currentValue=this.tasksFrom.value
+    this.tasksFrom.next([...currentValue,tasks]);
   }
   async createTask(data: Task): Promise<void> {
     const itemCollection = collection(this._firestore, this.collectionName);
     await addDoc(itemCollection, data);
   }
   getTasksData(): Observable<Task[]> {
-    return collectionData(this.tasksRef);
+    return collectionData(this.tasksRef,{idField:'id'}).pipe(map((item)=>item.map(el=>{
+      if(el['date'] instanceof Timestamp){
+        return {
+          ...el,
+          date:el['date'].toDate()
+        }
+      }
+      return el;
+    }
+  )));
   }
-  async updateItem(id: any, data: any): Promise<void> {
+  async updateItem(id: Task, data: any): Promise<void> {
     const item = doc(this._firestore, `${this.collectionName}/${id}`);
-    await updateDoc(data, item);
+    await updateDoc(item,data);
   }
   async deleteItem(id: string): Promise<void> {
     const item = doc(this._firestore, `${this.collectionName}/${id}`);
