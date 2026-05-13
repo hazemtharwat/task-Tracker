@@ -1,0 +1,13 @@
+.spacer {
+    flex: 1 1 auto;
+}
+
+@media screen and (max-width:450px) {
+    .navbarwraper {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        z-index: 999;
+    }
+}
