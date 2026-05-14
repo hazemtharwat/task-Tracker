@@ -51,6 +51,7 @@
 }
 .updtbtn {
   // background-color: rgb(41, 99, 245) !important;
+  background-color: #0777d2;
   border-radius: 10px !important;
   -webkit-border-radius: 10px;
   -moz-border-radius: 10px;
@@ -60,7 +61,10 @@
   margin-left: 10px;
   margin-right: 10px;
   width: 3px;
-  height: 40px;
+  height: 35px;
+}
+.mat-button{
+  color: #0777d2;
 }
 // .paiortyRed{ background-color: #f31c1c; color: white ; padding: 12px; border-radius: 8px; -webkit-border-radius:; -moz-border-radius:; -ms-border-radius:; -o-border-radius:;
 // }

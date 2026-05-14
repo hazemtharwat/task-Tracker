@@ -1,6 +1,12 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
-import {GoogleAuthProvider,Auth, signInWithEmailAndPassword, signInWithPopup} from '@angular/fire/auth'
+import {
+  GoogleAuthProvider,
+  Auth,
+  signInWithEmailAndPassword,
+  signInWithPopup,
+  signInWithRedirect,
+} from '@angular/fire/auth';
 import {
   FormBuilder,
   FormGroup,
@@ -31,12 +37,13 @@ import { Route, Router, RouterLink } from '@angular/router';
   styleUrl: './login.component.scss',
 })
 export class LoginComponent {
-  isSubmtionSuccess:boolean=false;
-  errorMasseg:string='';
+  isSubmtionSuccess: boolean = false;
+  errorMasseg: string = '';
   loginForm!: FormGroup;
-  private auth=inject(Auth)
-  private  route=inject(Router)
-  googleAuthProvider=new GoogleAuthProvider()
+
+  private auth = inject(Auth);
+  private route = inject(Router);
+  googleAuthProvider = new GoogleAuthProvider();
   constructor(private fb: FormBuilder) {
     this.loginForm = this.fb.group({
       loginEmail: [null],
@@ -45,22 +52,38 @@ export class LoginComponent {
   }
   ngOninit(): void {}
   loginsubmit(): void {
-  const formValue= this.loginForm.value
-      signInWithEmailAndPassword(this.auth,formValue.loginEmail,formValue.loginPassword).then((res)=>{
-       this.isSubmtionSuccess=true;
-        this. navgateToDashbord()
+    const formValue = this.loginForm.value;
+    signInWithEmailAndPassword(
+      this.auth,
+      formValue.loginEmail,
+      formValue.loginPassword,
+    )
+      .then((res) => {
+        this.isSubmtionSuccess = true;
+        this.navgateToDashbord();
         console.log(this.loginForm.value);
-      }).catch((err)=>{
-        this.errorMasseg=err
       })
+      .catch((err) => {
+        this.errorMasseg = err;
+      });
   }
-  singinWithGoogle(){
-    signInWithPopup(this.auth,this.googleAuthProvider).then(res=>{
-       this. navgateToDashbord()
-      console.log(res +"google sign in" )
-    })
+  singinWithGoogle() {
+    const isMobile = window.innerWidth < 768;
+    if (!isMobile) {
+      signInWithPopup(this.auth, this.googleAuthProvider).then((res) => {
+        this.navgateToDashbord();
+        console.log(res + 'google sign in');
+      });
+    }
+
+    if (isMobile) {
+      signInWithRedirect(this.auth, this.googleAuthProvider).then((res) => {
+        this.navgateToDashbord();
+        console.log(res + 'google sign in');
+      });
+    }
   }
-  navgateToDashbord(){
-    this.route.navigate(['./dashbord'])
+  navgateToDashbord() {
+    this.route.navigate(['./dashbord']);
   }
 }
