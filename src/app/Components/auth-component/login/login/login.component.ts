@@ -57,7 +57,7 @@ export class LoginComponent {
   singinWithGoogle(){
     signInWithPopup(this.auth,this.googleAuthProvider).then(res=>{
        this. navgateToDashbord()
-      console.log(res +"google sign in " )
+      console.log(res +"google sign in" )
     })
   }
   navgateToDashbord(){
