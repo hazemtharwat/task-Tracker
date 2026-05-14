@@ -34,7 +34,7 @@ export class TaskModalComponent {
   tasksList: Task[] | any = [];
   taskForm: any;
   itemData:any;
-  private _buttomSheet = inject(MatBottomSheet);
+    private _buttomSheet = inject(MatBottomSheet);
   private tasksService = inject(TasksService);
   private fb = inject(FormBuilder);
 
@@ -49,6 +49,23 @@ export class TaskModalComponent {
       }
     });
   }
+  enableIsDoneItems(id:Task,data:Task){
+    data.done=true
+     this.tasksService.updateItem(id,data).then(res=>{
+      // this.tasksList=[...this.tasksList,...data.done=true]
+
+    }).catch(err=>{console.log(err+"error mode")})
+  }
+
+  disableIsDoneItems(id:Task,data:Task){
+    data.done=false
+    this.tasksService.updateItem(id,data).then(res=>{
+
+
+
+    }).catch(err=>{console.log(err+"error mode")})
+  }
+
   getTasksData(): void {
     if (!this.tasksService) {
       this.tasksList = [

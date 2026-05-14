@@ -1,6 +1,19 @@
 <div class="container loginbody">
-    <label for="email" class="mb-2">enter your email</label>
-    <input id="email" type="text" placeholder="your email ..." class="form-control mb-3">
+@if(loginForm){
+       <form (submit)="loginsubmit()" [formGroup]="loginForm" class="m-auto w-50">
+     <label for="email" class="mb-2">enter your email</label>
+    <input id="email" type="text" placeholder="abc@abc.com" class="form-control mb-3 w-100" 
+    formControlName="loginEmail">
     <label for="password" class="mb-2">enter your Password</label>
-    <input id="password" type="password" placeholder="password *** " class="form-control mb-3">
+    <input id="password" type="password" placeholder="password *** " class="form-control mb-3 w-100" 
+    formControlName="loginPassword">
+    <button type="submit" class="loginbtn btn me-auto w-100">Login</button>
+    <button (click)="singinWithGoogle()" class="btn ">
+       <img type="button" class="loginIcon btn me-auto w-auto my-2" src="./assets/Logo-google-icon-PNG.png">
+    </button>
+    <img type="button" class="loginIcon btn me-auto w-auto my-2" src="./assets/images.png">
+    <p class="text-center mt-1 fw-bold">you don't have an acount ...</p>
+    <button   [routerLink]="['/auth/register']"  class="d-inline-block btn btn-primary  m1-3 w-100">Register</button >
+    </form>
+}
 </div>

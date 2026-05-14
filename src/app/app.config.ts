@@ -8,6 +8,7 @@ import { provideNativeDateAdapter } from '@angular/material/core';
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { getFirestore, provideFirestore } from '@angular/fire/firestore';
 import { provideAnimations } from '@angular/platform-browser/animations';
+import { getAuth, provideAuth } from '@angular/fire/auth';
 
 export const appConfig: ApplicationConfig = {
   providers: [provideRouter(routes), provideClientHydration(), provideAnimationsAsync(),provideNativeDateAdapter(), provideAnimations(),provideToastr(),
@@ -17,6 +18,6 @@ export const appConfig: ApplicationConfig = {
       storageBucket:  "task-tracker-4b827.firebasestorage.app",
       messagingSenderId: "951407077086",
       appId: "1:951407077086:web:5a9135c0106325049b844f", 
-      measurementId: "G-9G1YWQN4JW"})), provideFirestore(() => getFirestore()),
+      measurementId: "G-9G1YWQN4JW"})), provideFirestore(() => getFirestore()), provideAuth(() => getAuth()),
   ]
 };

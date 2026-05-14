@@ -1,0 +1,22 @@
+<div class="container registerbody">
+@if(registerForm){
+       <form (submit)="registersubmit()" [formGroup]="registerForm" class="m-auto w-50">
+         <label for="Name" class="mb-2">enter your Name</label>
+    <input id="Name" type="text" placeholder="abcd...." class="form-control mb-3" 
+    formControlName="registerName">
+     <label for="email" class="mb-2">enter your email</label>
+    <input id="email" type="text" placeholder="abc@abc.com" class="form-control mb-3" 
+    formControlName="registerEmail">
+    <label for="password" class="mb-2">enter your Password</label>
+    <input id="password" type="password" placeholder="password *** " class="form-control mb-3" 
+    formControlName="registerPassword">
+    <button type="submit" class="registerbtn btn me-auto w-100">register</button>
+        <img type="button" class="loginIcon btn me-auto w-auto my-2" src="./assets/Logo-google-icon-PNG.png">
+    <img type="button" class="loginIcon btn me-auto w-auto my-2" src="./assets/images.png">
+    <div class="mx-auto w-100">
+      <p class="text-center mt-1 fw-bold">you don't have an acount ...</p>
+    <button   [routerLink]="['/auth/login']"  class="d-inline-block btn btn-primary mx-auto  m1-3 w-100">Login</button >
+    </div>
+   </form>
+}
+</div>

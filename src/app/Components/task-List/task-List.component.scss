@@ -28,13 +28,14 @@
 .cnclbtn {
   margin-bottom: 5px;
 }
-.taskItemStyle {
-  text-decoration: line-through;
-}
+
 .addtaskBtn {
   position: absolute;
   bottom: 14rem;
   right: 25rem;
+}
+.taskDone{
+  text-decoration: line-through;
 }
 @media screen and (max-width: 968px) {
   .taskWrapper {
@@ -49,7 +50,7 @@
   }
 }
 .updtbtn {
-  background-color: rgb(41, 99, 245) !important;
+  // background-color: rgb(41, 99, 245) !important;
   border-radius: 10px !important;
   -webkit-border-radius: 10px;
   -moz-border-radius: 10px;
@@ -59,17 +60,39 @@
   margin-left: 10px;
   margin-right: 10px;
   width: 3px;
-  height: 20px;
+  height: 40px;
 }
-// .paiortyRed{
-// background-color: #9964f5;
-// color: white ;
+// .paiortyRed{ background-color: #f31c1c; color: white ; padding: 12px; border-radius: 8px; -webkit-border-radius:; -moz-border-radius:; -ms-border-radius:; -o-border-radius:;
 // }
-// .paiortyYellow{
-//   background-color:#9576ca;
-//   color: black;
-// }
-// .paiortyblue{
-//   background-color:	#afc1d0;
-//   color: white;
-// }
+.paiortyRed{
+      background-color: #f31c1c;
+    color: white;
+    border-radius: 8px;
+    padding: 5px;
+    -webkit-border-radius: 8px;
+    height: 26px !important;
+}
+.paiortyYellow{
+  background-color:#e7a50c;
+  color: black;
+    border-radius: 8px;
+    padding: 5px;
+    -webkit-border-radius: 8px;
+    height: 26px !important;
+  -webkit-border-radius:8px ;
+  -moz-border-radius:8px ;
+  -ms-border-radius:8px ;
+  -o-border-radius:8px ;
+}
+.paiortyblue{
+  background-color:	#0777d2;
+  color: white;
+    border-radius: 8px;
+    padding: 5px;
+    -webkit-border-radius: 8px;
+    height: 26px !important;
+  -webkit-border-radius: 8px;
+  -moz-border-radius: 8px;
+  -ms-border-radius: 8px;
+  -o-border-radius: 8px;
+}

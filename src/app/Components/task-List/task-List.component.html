@@ -3,33 +3,29 @@
   <div class="taskWrapper mat-elevation-z3 p-2 position-relative">
  @if(tasksList){
      @for (item of tasksList; track $index) {
-      <div   [ngClass]="{
-              'paiortyRed': item.Priority?.trim() === 'High',
-              'paiortyYellow': item.Priority?.trim() === 'Meduim',
-              'paiortyblue': item.Priority?.trim() === 'Low', }" class="taskItem mat-elevation-z2 px-1 py-3 mb-2 ">
+      <div   class="taskItem mat-elevation-z2 px-1 py-3 mb-2 ">
         <div class="d-flex algin-center ">
-          <div class="fs-5">
-            @if (item.done === false) {
-              <mat-icon>donut_large</mat-icon>
+          <div class="fs-5" >
+            @if(!item.done){
+              <div class="d-flex">
+              <mat-icon  >donut_large</mat-icon>
+               <p class="ms-2 fw-bold " role="button"  (touchstart)="disableIsDoneItems(item.id,item)" (click)="enableIsDoneItems(item.id,item)">{{ item.title }} <span class="text-info"> (Progress {{ item.progress }}%)</span></p>
+                </div>
+            }@if(item.done){
+              <div class="d-flex">
+                <mat-icon  class="text-primary" >check_circle</mat-icon>
+             <p class="ms-2 fw-bold taskDone" role="button"  (touchstart)="disableIsDoneItems(item.id,item)" (click)="disableIsDoneItems(item.id,item)">{{ item.title }} <span class="text-info"> (Progress {{ item.progress }}%)</span></p>
+              </div>
             }
-            <!-- @if (item.done === true) {
-              <mat-icon class="text-primary">check_circle</mat-icon>
-            } -->
           </div>
-          <!-- @if (item.done === true) {
-            <p class="ms-2 fw-bold taskItemStyle">{{ item.title }}</p>
-          } @else { -->
-            <p class="ms-2 fw-bold">
-              {{ item.title }}
-              <span class="text-info"> (Progress {{ item.progress }}%)</span>
-            </p>
-          <!-- } -->
         </div>
         <div class="d-flex justify-content-between algin-center dtWrppr mb-2">
-          <!-- <span class="dueDate">Due:{{ item.date.toLocaleString() | date: "long" }}</span> -->
           <span class="dueDate">Time :{{ item.date | date:'medium' }}</span>
-          <span>
-          Priority: {{ item.Priority }}
+          <span  [ngClass]="{
+              'paiortyRed': item.Priority?.trim() === 'High',
+              'paiortyYellow': item.Priority?.trim() === 'Meduim',
+              'paiortyblue': item.Priority?.trim() === 'Low', }">
+          {{ item.Priority }}
           </span>
          
           <div class="d-flex align-items-center">

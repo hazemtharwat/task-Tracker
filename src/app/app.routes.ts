@@ -1,14 +1,10 @@
 import { Routes } from '@angular/router';
-import { TaskModalComponent } from './Components/task-List/task-List.component';
 import { NotfoundComponent } from './Components/notfound/notfound.component';
-import { LoginComponent } from './Components/auth-component/login/login/login.component';
-import { RegisterComponent } from './Components/auth-component/register/register/register.component';
-
 export const routes: Routes = [
-    {path:'',redirectTo:'home',pathMatch:"full"},
-    {path:'home',component:TaskModalComponent},
-    {path:'tasks',component:TaskModalComponent},
-    {path:'login',component:LoginComponent},
-    {path:'register',component:RegisterComponent},
+    {path:'',redirectTo:'auth',pathMatch:"full"},
+    {path:'auth',loadChildren:()=>import('./Core/auth/auth-routing.module').then(m=>m.AuthRoutingModule)},
+    // {path:'login',component:LoginComponent},
+    // {path:'register',component:RegisterComponent},
+    {path:'dashbord',loadChildren:()=>import('./Core/dashbord/dashbord-routing.module').then(m=>m.DashbordRoutingModule)},
     {path:'**',component:NotfoundComponent},
 ];
