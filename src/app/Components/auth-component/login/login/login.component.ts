@@ -1,24 +1,13 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
-import {
-  GoogleAuthProvider,
-  Auth,
-  signInWithEmailAndPassword,
-  signInWithPopup,
-  signInWithRedirect,
-} from '@angular/fire/auth';
-import {
-  FormBuilder,
-  FormGroup,
-  ɵInternalFormsSharedModule,
-  ReactiveFormsModule,
-} from '@angular/forms';
+import {GoogleAuthProvider,Auth,signInWithEmailAndPassword,signInWithPopup,signInWithRedirect, authState,} from '@angular/fire/auth';
+import { FormBuilder,FormGroup,ɵInternalFormsSharedModule,ReactiveFormsModule,} from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { MatIcon } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { Route, Router, RouterLink } from '@angular/router';
+import { doc, docData, Firestore } from '@angular/fire/firestore';
 @Component({
   selector: 'app-login',
   standalone: true,
@@ -40,7 +29,7 @@ export class LoginComponent {
   isSubmtionSuccess: boolean = false;
   errorMasseg: string = '';
   loginForm!: FormGroup;
-
+  private fireStore=inject(Firestore)
   private auth = inject(Auth);
   private route = inject(Router);
   googleAuthProvider = new GoogleAuthProvider();
@@ -50,8 +39,9 @@ export class LoginComponent {
       loginPassword: [null],
     });
   }
-  ngOninit(): void {}
+
   loginsubmit(): void {
+
     const formValue = this.loginForm.value;
     signInWithEmailAndPassword(
       this.auth,
@@ -60,6 +50,14 @@ export class LoginComponent {
     )
       .then((res) => {
         this.isSubmtionSuccess = true;
+     authState(this.auth).subscribe(user=>{
+      if(user){
+      const userDoc=doc(this.fireStore,`users/${user.uid}`)
+      docData(userDoc).subscribe(res=>{
+        console.log(res +"userData")
+      })
+      }
+     })   
         this.navgateToDashbord();
         console.log(this.loginForm.value);
       })
@@ -71,8 +69,15 @@ export class LoginComponent {
     const isMobile = window.innerWidth < 768;
     if (!isMobile) {
       signInWithPopup(this.auth, this.googleAuthProvider).then((res) => {
-        this.navgateToDashbord();
-        console.log(res + 'google sign in');
+         authState(this.auth).subscribe(user=>{
+      if(user){
+      const userDoc=doc(this.fireStore,`users/${user.uid}`)
+      docData(userDoc).subscribe(res=>{
+        console.log(res +"userData")
+      })
+      }
+     })  
+        this.navgateToDashbord();      
       });
     }
 

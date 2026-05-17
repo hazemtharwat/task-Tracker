@@ -51,6 +51,7 @@ export class CreateTaskComponent {
   @Output('tasksData') tasksData = new EventEmitter();
   private bottomSheetRef = inject(MatBottomSheetRef<CreateTaskComponent>);
   private tasksService = inject(TasksService);
+  isLogin:boolean=false;
   constructor(
     private fb: FormBuilder,
     @Inject(MAT_BOTTOM_SHEET_DATA) public data: any,
@@ -82,12 +83,14 @@ export class CreateTaskComponent {
       .createTask(itemTask)
       .then(() => {
         this.tasksService.setTaskData(itemTask);
-
+        
         this.toster.success('تمت الاضافه ');
       })
       .catch((err) => {
         this.toster.error(err);
-      });
+      }).finally(()=>{
+        this.isLogin=false
+      })
   }
 
   async onsubmit() {
@@ -95,6 +98,7 @@ export class CreateTaskComponent {
       this.CreateTaskFrom.markAllAsTouched();
       return;
     }
+    this.isLogin=true;
     if (this.data) {
       this.bottomSheetRef.dismiss({index: this.data.index,item: this.CreateTaskFrom.value,});
     } else {

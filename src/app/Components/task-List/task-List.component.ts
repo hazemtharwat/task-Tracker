@@ -14,6 +14,7 @@ import { FormArray, FormBuilder } from '@angular/forms';
 import { MatDividerModule } from '@angular/material/divider';
 import { ToastrService } from 'ngx-toastr';
 import { title } from 'node:process';
+import { NgxSpinnerModule, NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-task-List',
@@ -24,12 +25,13 @@ import { title } from 'node:process';
     DatePipe,
     MatButtonModule,
     MatBottomSheetModule,
-    MatDividerModule,
+    MatDividerModule,NgxSpinnerModule,
   ],
   templateUrl: './task-List.component.html',
   styleUrl: './task-List.component.scss',
 })
 export class TaskModalComponent {
+  private spinner=inject(NgxSpinnerService)
   private toster = inject(ToastrService);
   tasksList: Task[] | any = [];
   taskForm: any;

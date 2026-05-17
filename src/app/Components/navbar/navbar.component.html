@@ -6,6 +6,13 @@
 
   <button mat-button routerLink="dashbord/home">Home</button>
   <button mat-button routerLink="dashbord/tasks">Tasks</button>
-  <button mat-button routerLink="auth/login">Login</button>
+  @if(isLogin){
+    <button mat-button routerLink="auth/login" (click)="logout()">SignOut</button>
+    
+  }
+  @if(!isLogin){
+    <button mat-button routerLink="auth/login">Login</button>
+
+  }
 </mat-toolbar>
 </div>

@@ -11,8 +11,7 @@
     <input id="password" type="password" placeholder="password *** " class="form-control mb-3" 
     formControlName="registerPassword">
     <button type="submit" class="registerbtn btn me-auto w-100">register</button>
-        <img type="button" class="loginIcon btn me-auto w-auto my-2" src="./assets/Logo-google-icon-PNG.png">
-    <img type="button" class="loginIcon btn me-auto w-auto my-2" src="./assets/images.png">
+        <img type="button" (click)="signUpwithGoogle()" class="loginIcon btn me-auto w-auto my-2" src="./assets/Logo-google-icon-PNG.png">
     <div class="mx-auto w-100">
       <p class="text-center mt-1 fw-bold">you don't have an acount ...</p>
     <button   [routerLink]="['/auth/login']"  class="d-inline-block btn btn-primary mx-auto  m1-3 w-100">Login</button >
