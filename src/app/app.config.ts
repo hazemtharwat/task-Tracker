@@ -1,5 +1,5 @@
 import { ApplicationConfig, importProvidersFrom } from '@angular/core';
-import { provideRouter } from '@angular/router';
+import { provideRouter, withHashLocation } from '@angular/router';
 import { provideToastr } from 'ngx-toastr';
 import { routes } from './app.routes';
 import { provideClientHydration } from '@angular/platform-browser';
@@ -11,7 +11,7 @@ import { provideAnimations } from '@angular/platform-browser/animations';
 import { getAuth, provideAuth } from '@angular/fire/auth';
 import { NgxSpinnerModule } from 'ngx-spinner';
 export const appConfig: ApplicationConfig = {
-  providers: [provideRouter(routes), provideClientHydration(), importProvidersFrom(NgxSpinnerModule.forRoot()), provideAnimationsAsync(),provideNativeDateAdapter(), provideAnimations(),provideToastr(),
+  providers: [provideRouter(routes, withHashLocation()), provideClientHydration(), importProvidersFrom(NgxSpinnerModule.forRoot()), provideAnimationsAsync(),provideNativeDateAdapter(), provideAnimations(),provideToastr(),
      provideFirebaseApp(() => initializeApp({ apiKey: "AIzaSyDy-MuXn3DJV6FyoSqgus_1kc2it92EY_Q",
       authDomain: "task-tracker-4b827.firebaseapp.com",
       projectId: "task-tracker-4b827",

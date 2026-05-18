@@ -1,7 +1,10 @@
 .spacer {
     flex: 1 1 auto;
 }
-
+.logoImg{
+    width:13rem;
+    
+}
 @media screen and (max-width:450px) {
     .navbarwraper {
         position: fixed;

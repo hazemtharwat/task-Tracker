@@ -15,6 +15,8 @@ import { MatDividerModule } from '@angular/material/divider';
 import { ToastrService } from 'ngx-toastr';
 import { title } from 'node:process';
 import { NgxSpinnerModule, NgxSpinnerService } from 'ngx-spinner';
+import {MatSidenavModule} from '@angular/material/sidenav';
+
 
 @Component({
   selector: 'app-task-List',
@@ -25,7 +27,7 @@ import { NgxSpinnerModule, NgxSpinnerService } from 'ngx-spinner';
     DatePipe,
     MatButtonModule,
     MatBottomSheetModule,
-    MatDividerModule,NgxSpinnerModule,
+    MatDividerModule,NgxSpinnerModule,MatSidenavModule,
   ],
   templateUrl: './task-List.component.html',
   styleUrl: './task-List.component.scss',
@@ -36,6 +38,7 @@ export class TaskModalComponent {
   tasksList: Task[] | any = [];
   taskForm: any;
   itemData:any;
+  showFiller:boolean=false;
     private _buttomSheet = inject(MatBottomSheet);
   private tasksService = inject(TasksService);
   private fb = inject(FormBuilder);
