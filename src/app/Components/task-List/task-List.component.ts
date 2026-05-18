@@ -9,13 +9,14 @@ import {
   MatBottomSheetModule,
 } from '@angular/material/bottom-sheet';
 import { TasksService } from '../../Core/services/tasks.service';
-import { findIndex, take } from 'rxjs';
+import { finalize, findIndex, take } from 'rxjs';
 import { FormArray, FormBuilder } from '@angular/forms';
 import { MatDividerModule } from '@angular/material/divider';
 import { ToastrService } from 'ngx-toastr';
-import { title } from 'node:process';
+
 import { NgxSpinnerModule, NgxSpinnerService } from 'ngx-spinner';
 import {MatSidenavModule} from '@angular/material/sidenav';
+import { AuthRoutingModule } from "../../Core/auth/auth-routing.module";
 
 
 @Component({
@@ -27,8 +28,9 @@ import {MatSidenavModule} from '@angular/material/sidenav';
     DatePipe,
     MatButtonModule,
     MatBottomSheetModule,
-    MatDividerModule,NgxSpinnerModule,MatSidenavModule,
-  ],
+    MatDividerModule, NgxSpinnerModule, MatSidenavModule,
+    AuthRoutingModule
+],
   templateUrl: './task-List.component.html',
   styleUrl: './task-List.component.scss',
 })
@@ -39,6 +41,7 @@ export class TaskModalComponent {
   taskForm: any;
   itemData:any;
   showFiller:boolean=false;
+  
     private _buttomSheet = inject(MatBottomSheet);
   private tasksService = inject(TasksService);
   private fb = inject(FormBuilder);
@@ -98,13 +101,20 @@ export class TaskModalComponent {
       ];
     } else {
       this.tasksList = [];
+      this.spinner.show()      
       this.tasksService
         .getTasksData()
-        .pipe(take(1))
+        .pipe(take(1),finalize(()=>{
+           this.spinner.hide()
+         
+        }))
         .subscribe({
           next: (res) => {
             this.tasksList = res;
           },
+          error:(err)=>{
+            this.toster.error(err.message)
+          }
         });
     }
   }
@@ -131,10 +141,14 @@ export class TaskModalComponent {
         this.tasksList = this.tasksList.filter((el: any) => {
           return el.id != id;
         });
+        this.spinner.hide()
         this.toster.warning('deleted');
       })
       .catch((err) => {
         this.toster.error(err);
-      });
+         this.spinner.hide()
+      }).finally(()=>{
+        this.spinner.show()
+      })
   }
 }
