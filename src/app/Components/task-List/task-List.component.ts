@@ -10,7 +10,7 @@ import {
 } from '@angular/material/bottom-sheet';
 import { TasksService } from '../../Core/services/tasks.service';
 import { finalize, findIndex, take } from 'rxjs';
-import { FormArray, FormBuilder } from '@angular/forms';
+import {  FormBuilder } from '@angular/forms';
 import { MatDividerModule } from '@angular/material/divider';
 import { ToastrService } from 'ngx-toastr';
 

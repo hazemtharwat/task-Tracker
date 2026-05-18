@@ -1,0 +1,40 @@
+<section class=" calenderstyle my-1">
+    <div class="row">
+    <div class="col-md-2 ">
+<mat-drawer-container class="example-container position-relative w-100" autosize>
+  <mat-drawer #drawer class="slider w-75 " mode="side">
+   <div class="d-flex flex-column align-items-center">
+     <button role="button" class="my2 btn btn-outline-primary" routerLink="/dashbord/tasks">Task's List</button>
+    <button  role="button" class="my2 btn btn-outline-primary" routerLink="/dashbord/analysis"> <mat-icon>bar_chart</mat-icon>analysis</button>
+    <button  role="button" class="my2 btn btn-outline-primary" routerLink="/dashbord/calendar"> <mat-icon>bar_chart</mat-icon>calendar</button>
+   </div>
+    <div class="w-100">
+      <button role="button" class="my2 btn btn-outline-primary profile ms-4" routerLink="Profile">Profile</button>
+    </div>
+    
+  
+  </mat-drawer>
+
+  <div class="example-sidenav-content overflow-hidden">
+    <p></p>
+    <button class="btn btn-outline-primary mx-2 my-3"  matButton (click)="drawer.toggle()">
+      ☰
+    </button>
+
+  </div>
+
+</mat-drawer-container>
+
+    </div>
+<div class="col-md-10 mx-auto">
+   
+
+     <button (click)="toggleWeekends()" class="btn btn-outline-secondary">hide weekends</button>
+     <full-calendar [options]="calendarOptions"  (click)="handelClickTasks($event)" class="calenderstyle ">
+
+     </full-calendar>
+
+</div>
+     </div>
+
+</section>
